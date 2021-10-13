@@ -23,14 +23,14 @@ model = dict(
         in_index=[0, 1, 2, 3],
         channels=256,
         dropout_ratio=0.1,
-        num_classes=15,
+        num_classes=16,
         norm_cfg=dict(type='SyncBN', requires_grad=True),
         align_corners=False,
         loss_decode=dict(
             type='CrossEntropyLoss', use_sigmoid=False, loss_weight=1.0)),
     train_cfg=dict(),
     test_cfg=dict(mode='whole'))
-dataset_type = 'ADE20KDataset'
+dataset_type = 'DRIVEDataset'
 data_root = '/netscratch/minouei/versicherung/version7'
 
 train_pipeline = [
@@ -68,23 +68,23 @@ test_pipeline = [
         ])
 ]
 data = dict(
-    samples_per_gpu=4,
+    samples_per_gpu=8,
     workers_per_gpu=16,
     train=dict(
-        type='ADE20KDataset',
-        data_root='/netscratch/minouei/versicherung/version7',
+        type=dataset_type,
+        data_root=data_root,
         img_dir='images/train',
         ann_dir='annotations/box/train',
         pipeline=train_pipeline),
     val=dict(
-        type='ADE20KDataset',
-        data_root='/netscratch/minouei/versicherung/version7',
+        type=dataset_type,
+        data_root=data_root,
         img_dir='images/val',
         ann_dir='annotations/box/val',
         pipeline=test_pipeline),
     test=dict(
-        type='ADE20KDataset',
-        data_root='/netscratch/minouei/versicherung/version7',
+        type=dataset_type,
+        data_root=data_root,
         img_dir='images/val',
         ann_dir='annotations/box/val',
         pipeline=test_pipeline))
@@ -115,7 +115,7 @@ lr_config = dict(
     power=1.0,
     min_lr=0.0,
     by_epoch=False)
-runner = dict(type='IterBasedRunner', max_iters=160000)
+runner = dict(type='IterBasedRunner', max_iters=16000)
 checkpoint_config = dict(by_epoch=False, interval=16000)
 evaluation = dict(interval=16000, metric='mIoU', pre_eval=True)
 work_dir = '/netscratch/minouei/versicherung/work_dirs/segformer_mit-b2_512x512_160k_ver7'
