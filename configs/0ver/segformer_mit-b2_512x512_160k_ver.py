@@ -1,7 +1,7 @@
 norm_cfg = dict(type='SyncBN', requires_grad=True)
 model = dict(
     type='EncoderDecoder',
-    pretrained='pretrain/mit_b2.pth',
+    pretrained='/netscratch/minouei/versicherung/src/mmseg21/pretrain/mit_b2.pth',
     backbone=dict(
         type='MixVisionTransformer',
         in_channels=3,
