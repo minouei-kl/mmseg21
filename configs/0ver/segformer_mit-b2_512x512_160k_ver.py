@@ -26,9 +26,9 @@ model = dict(
         num_classes=16,
         norm_cfg=dict(type='SyncBN', requires_grad=True),
         align_corners=False,
-        # loss_decode=dict(type='CrossEntropyLoss', use_sigmoid=False, loss_weight=1.0)
-        loss_decode = dict(_delete_=True, type='FocalDiceLoss', loss_weight=1.0)
-),
+        loss_decode=dict(type='CrossEntropyLoss', use_sigmoid=False, loss_weight=1.0)
+        # loss_decode = dict(_delete_=True, type='FocalDiceLoss', loss_weight=1.0)
+    ),
 
     train_cfg=dict(),
     test_cfg=dict(mode='whole'))
@@ -117,8 +117,8 @@ lr_config = dict(
     power=1.0,
     min_lr=0.0,
     by_epoch=False)
-runner = dict(type='IterBasedRunner', max_iters=16000)
-checkpoint_config = dict(by_epoch=False, interval=16000)
-evaluation = dict(interval=16000, metric='mIoU', pre_eval=True)
+runner = dict(type='IterBasedRunner', max_iters=8000)
+checkpoint_config = dict(by_epoch=False, interval=4000)
+evaluation = dict(interval=4000, metric='mIoU', pre_eval=True)
 work_dir = '/netscratch/minouei/versicherung/work_dirs/segformer_mit-b2_512x512_160k_ver7'
 gpu_ids = range(0, 1)
