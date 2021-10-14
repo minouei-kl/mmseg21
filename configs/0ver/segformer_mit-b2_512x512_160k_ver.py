@@ -27,7 +27,7 @@ model = dict(
         norm_cfg=dict(type='SyncBN', requires_grad=True),
         align_corners=False,
         # loss_decode=dict(type='CrossEntropyLoss', use_sigmoid=False, loss_weight=1.0)
-        loss_decode = dict(_delete_=True, type='FocalLoss', loss_weight=1.0)
+        loss_decode = dict(_delete_=True, type='FocalDiceLoss', loss_weight=1.0)
 ),
 
     train_cfg=dict(),
